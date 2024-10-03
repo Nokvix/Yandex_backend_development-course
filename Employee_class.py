@@ -5,6 +5,7 @@ class Employee:
         self.first_name: str = first_name
         self.second_name: str = second_name
         self.gender: str = gender
+        self.remaining_vacation_days: int = self.vacation_days
 
     def __str__(self) -> str:
         return (
@@ -14,18 +15,16 @@ class Employee:
             f'Отпускных дней в году: {self.vacation_days}.'
         )
 
+    def consume_vacation(self, write_off_days: int) -> None:
+        self.remaining_vacation_days -= write_off_days
 
-employee1: Employee = Employee(
-    first_name='Роберт',
-    second_name='Крузо',
-    gender='м'
-)
+        if self.remaining_vacation_days < 0:
+            self.remaining_vacation_days = 0
 
-employee2: Employee = Employee(
-    first_name='Мария',
-    second_name='Крузова',
-    gender='ж'
-)
+    def get_vacation_details(self) -> str:
+        return f'Остаток отпускных дней: {self.remaining_vacation_days}.'
 
-print(employee1)
-print(employee2)
+
+employee = Employee('Роберт', 'Крузо', 'м')
+employee.consume_vacation(7)
+print(employee.get_vacation_details())
