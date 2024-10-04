@@ -41,14 +41,18 @@ class PartTimeEmployee(Employee):
         self.remaining_vacation_days: int = self.vacation_days
 
 
-employee = Employee('Иванка', 'Иванова', 'ж')
-print(employee._employee_id)
-
 full_time_employee = FullTimeEmployee('Иван', 'Иванов', 'м', 50000)
-print(full_time_employee.get_unpaid_vacation('2023-07-01', 5))
+full_time_employee.consume_vacation(4)
+print(full_time_employee.get_unpaid_vacation('2021-03-10', 12))
+print(full_time_employee.get_vacation_details())
 print(full_time_employee._employee_id)
+print(full_time_employee.__salary)
+print(full_time_employee.__generate_employee_id())
+print(full_time_employee.__get_vacation_salary())
+
 
 part_time_employee = PartTimeEmployee('Анна', 'Петрова', 'ж')
 part_time_employee.consume_vacation(5)
 print(part_time_employee.get_vacation_details())
 print(part_time_employee._employee_id)
+print(part_time_employee.__generate_employee_id())
