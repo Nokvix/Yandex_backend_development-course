@@ -8,7 +8,8 @@ def task1():
     res = requests.get(f'{BASE_URL}/products')
     all_products = res.json()
 
-    product_with_price_less_than_20 = [product for product in all_products if product['price'] < 20]
+    product_with_price_less_than_20 = [
+        product for product in all_products if product['price'] < 20]
     print(product_with_price_less_than_20)
 
 
