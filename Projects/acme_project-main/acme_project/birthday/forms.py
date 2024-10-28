@@ -1,6 +1,6 @@
 from django import forms
 from django.core.mail import send_mail
-from .models import Birthday
+from .models import Birthday, Congratulations
 from django.core.exceptions import ValidationError
 
 
@@ -37,3 +37,9 @@ class BirthdayForm(forms.ModelForm):
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
         return first_name.split()[0]
+
+
+class CongratulationsForm(forms.ModelForm):
+    class Meta:
+        model = Congratulations
+        fields = ('text',)
