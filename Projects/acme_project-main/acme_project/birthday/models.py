@@ -1,8 +1,16 @@
-from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from .validators import real_age
+
+
+User = get_user_model()
+
+class Tag(models.Model):
+    tag = models.CharField('Тег', max_length=20)
+
+    def __str__(self):
+        return self.tag
 
 
 class Birthday(models.Model):
@@ -12,6 +20,20 @@ class Birthday(models.Model):
     )
     birthday = models.DateField('Дата рождения', validators=(real_age,))
     image = models.ImageField('Фото', upload_to='birthdays_images', blank=True)
+    tags = models.ManyToManyField(
+        Tag,
+        verbose_name='Теги',
+        blank=True,
+        help_text='Удерживайте Ctrl для выбора нескольких вариантов'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        default=User.objects.get(username='admin').id
+    )
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
     class Meta:
         constraints = (
@@ -33,7 +55,7 @@ class Congratulations(models.Model):
         related_name='congratulations',
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('created_at',)
