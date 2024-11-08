@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 
 file.py
+pytest_trial
