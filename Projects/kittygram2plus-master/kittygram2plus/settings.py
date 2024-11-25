@@ -137,7 +137,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.UserRateThrottle',
-        'rest_framework.throttling.AnonRateThrottle',
+
+        # 'rest_framework.throttling.AnonRateThrottle', # Поключим локально, где нужно
     ],
 
     'DEFAULT_THROTTLE_RATES': {
